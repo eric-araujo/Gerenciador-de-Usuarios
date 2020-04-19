@@ -3,9 +3,7 @@ var user = {};
 
 function addLine(dataUser){
 
-    var tr = document.createElement("tr");
-
-    tr.innerHTML = `
+    document.querySelector("#table-users").innerHTML = `
         <tr>
             <td><img src="dist/img/user1-128x128.jpg" alt="User Image" class="img-circle img-sm"></td>
             <td>${dataUser.name}</td>
@@ -18,8 +16,6 @@ function addLine(dataUser){
             </td>
         </tr>
     `;
-
-    document.querySelector("#table-users").appendChild(tr);
 
 }
 
@@ -45,6 +41,17 @@ document.querySelector("#form-user-create").addEventListener("submit", (event) =
     
     });
 
-    addLine(user);
+    var objectUser = new User(
+        user.name, 
+        user.gender, 
+        user.birth, 
+        user.country,
+        user.email,
+        user.password,
+        user.photo,
+        user.admin
+    );
+
+    addLine(objectUser);
 
 });
