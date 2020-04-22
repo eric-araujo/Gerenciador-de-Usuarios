@@ -170,16 +170,32 @@ class UserController {
             let json = JSON.parse(tr.dataset.user);
             let form = document.querySelector("#form-user-update");
 
-            for (let name in json){
-                    
+            for (let name in json) {
+
                 let field = form.querySelector("[name=" + name.replace("_", "") + "]");
 
-                if(field){
-                    
-                    if(field.type == 'file') continue;
-                    console.log(json);
-                    field.value = json[name];
-                    
+                if (field) {
+
+                    if (field.type == 'file') continue;
+
+                    switch (field.type) {
+                        case 'file':
+                            continue;
+                        break;
+
+                        case 'radio':
+                            field = form.querySelector("[name=" + name.replace("_", "") + "][value=" + json[name] + "]");
+                            field.checked = true;
+                        break;
+
+                        case 'checkbox':
+                            field.checked = json[name];
+                        break;
+
+                        default:
+                            field.value = json[name];
+                    }
+
                 }
 
             }
