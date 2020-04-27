@@ -89,8 +89,8 @@ class User {
 
                 case '_register':
                     this[name] = new Date(json[name]);
-                break;
-                
+                    break;
+
                 default:
                     this[name] = json[name];
             }
@@ -115,11 +115,15 @@ class User {
 
     getNewID() {
 
-        if (!window.id) window.id = 0;
+        let usersID = parseInt(localStorage.getItem("usersID"));
 
-        id++;
+        if (!usersID) usersID = 0;
 
-        return id;
+        usersID++;
+
+        localStorage.setItem("usersID", usersID);
+
+        return usersID;
 
     }
 
@@ -148,6 +152,24 @@ class User {
             users.push(this);
 
         }
+
+        localStorage.setItem("users", JSON.stringify(users));
+
+    }
+
+    remove() {
+
+        let users = User.getUsersStorage();
+
+        users.forEach((userData, index) => {
+
+            if(this._id == userData._id){
+
+                users.splice(index, 1);
+
+            }
+
+        });
 
         localStorage.setItem("users", JSON.stringify(users));
 

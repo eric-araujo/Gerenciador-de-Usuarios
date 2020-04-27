@@ -263,6 +263,12 @@ class UserController {
 
             if (confirm("Deseja realmente excluir?")) {
 
+                let user = new User();
+
+                user.loadFromJSON(JSON.parse(tr.dataset.user));
+
+                user.remove();
+
                 tr.remove();
 
                 this.updateCount();
